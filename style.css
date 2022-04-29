@@ -3,6 +3,9 @@
     margin: 0;
     line-height: 0;
     box-sizing: border-box;
+    font-family: 'Fuzzy Bubbles', cursive;
+    font-family: 'Karla', sans-serif;
+    font-family: 'Radio Canada', sans-serif;
 }
 Background {
     background-image: url(images/background.jpg);
