@@ -1,14 +1,15 @@
+// keeping the calculator in the middle of the page
 function centerElement() {
-    var child = document.getElementById("Calculator");
-    var parent = document.getElementsByTagName("Body")[0];
-    var x2 = child.offsetWidth;
-    var x1 = parent.offsetWidth;
-    var y2 = child.offsetHeight;
-    var y1 = parent.offsetHeight;
+    var calculator = document.getElementById("Calculator");
+    var body = document.getElementsByTagName("Body")[0];
+    var x2 = calculator.offsetWidth;
+    var x1 = body.offsetWidth;
+    var y2 = calculator.offsetHeight;
+    var y1 = body.offsetHeight;
     var marginX = (x1-x2) / 2;
     var marginY = (y2-y1) / 2;
-    child.style.top = marginY + "px";
-    child.style.left = marginX + "px";
+    calculator.style.top = marginY + "px";
+    calculator.style.left = marginX + "px";
 }
 
 window.onclick = centerElement;
@@ -68,18 +69,20 @@ window.onload = function () {
             case "0": display(0); break;
             case ".": display("."); break;
             case "%": operatorDoes("%"); break;
-            case "=": operatorDoes("/"); break;
+            case "=": operatorDoes("="); break;
             case "/": operatorDoes("/"); break;
             case "*": operatorDoes("*"); break;
             case "+": operatorDoes("+"); break;
-            case "-": operatorDoes("="); break;
+            case "-": operatorDoes("-"); break;
             case "Enter": operatorDoes("="); break;
         }
     })
     // DEBUG: changed all parseInt to parseFloat so it accepts the "." value
+    // collects all inputs and collects what operation the user wants
     function operatorDoes(operator) {
         switch (operator) {
             case "%":
+                // divides the current display by 100 first then evaluates
                 current.innerText = parseFloat(current.innerText) / 100;
                 evaluate();
                 past.innerText = "";
@@ -115,28 +118,30 @@ window.onload = function () {
                 storedOp = "-";
                 break;
         }
+        select(operator);
     }
-
+    // does the equations
     function evaluate() {
+        var parsed = parseFloat(current.innerText);
         switch (storedOp) {
             case "/":
-                storedNum /= parseFloat(current.innerText);
+                storedNum /= parsed;
                 past.innerText = storedNum;
                 break;
             case "*":
-                storedNum *= parseFloat(current.innerText)
+                storedNum *= parsed;
                 past.innerText = storedNum;
                 break;
             case "-":
-                storedNum -= parseFloat(current.innerText);
+                storedNum -= parsed;
                 past.innerText = storedNum;
                 break;
             case "+":
-                storedNum += parseFloat(current.innerText);
+                storedNum += parsed;
                 past.innerText = storedNum;
                 break;
             default:
-                storedNum = parseFloat(current.innerText);
+                storedNum = parsed;
                 past.innerText = storedNum;
                 break;
         }
@@ -149,6 +154,7 @@ window.onload = function () {
         if (current.innerText == "0") {
             current.innerText = "";
         }
+        select(value);
         current.innerText += value;
     }
 
@@ -159,22 +165,33 @@ window.onload = function () {
         past.innerText = "";
         storedOp = "";
         current.innerText = 0;
+        select("_");
     }
 
     // Adding/removing negative
     var negative = document.getElementById("Negative");
     function negativeOp() {
+        select("--");
         if (negative.classList.contains("activated")) {
             negative.classList.remove("activated");
             negative.classList.add("deactivated");
             // current.innerText = current.innerText.substring(1, current.innerText.length); // DEBUG: for some reason sometimes causes to remove the first number when there's no '-' value but it shouldn't activate in the first place.
             current.innerText = current.innerText.substring(current.innerText.indexOf('-') + 1, current.innerText.length);
-            return;
+            return; //return to end the function when it activates so it doesnt deactivate
         }
         if (negative.classList.contains("deactivated")) {
             negative.classList.remove("deactivated");
             negative.classList.add("activated");
             current.innerText = "-" + current.innerText;
         }
+    }
+
+    // highlights when keys get pressed/selected
+    function select(id) {
+        var key = document.getElementsByClassName(id)[0];
+        key.classList.add("selected");
+        setTimeout(() => {
+            key.classList.remove("selected");
+        }, 150);
     }
 }
