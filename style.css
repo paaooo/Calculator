@@ -1,0 +1,60 @@
+* {
+    padding: 0;
+    margin: 0;
+    line-height: 0;
+    box-sizing: border-box;
+}
+Calculator {
+    position: absolute;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    min-width: 325px;
+    border-radius: 10px;
+    border: 1px solid black;
+    box-shadow: 3px 2px 10px;
+}
+#zero {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    border-bottom-left-radius: 10px;
+}
+#Equals {   
+    border-bottom-right-radius: 10px;
+}
+#Display {
+    position: relative;
+    min-height: 100px;
+    padding-right: 5%;
+    grid-column-start: 1;
+    grid-column-end: 5;
+    text-align: end;
+    background-color: aliceblue;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+Display  #past {
+    line-height: 0;
+    color: gray;
+    font-size: 20px;
+    padding-top: 20px;
+}
+Display #current {
+    line-height: 0;
+    font-size: 50px;
+    padding-top: 45px;
+}
+Keypad p {
+    line-height: 75px;
+}
+Keypad {
+    position: relative;
+    border: .1px solid black;
+    text-align: center;
+    font-size: 25px;
+}
+.Op {
+    background-color: rgba(255, 188, 64, 0.863);
+}
+.Num {
+    background-color: rgb(173, 158, 158);
+}
