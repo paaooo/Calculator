@@ -83,7 +83,6 @@ window.onload = function () {
         switch (operator) {
             case "%":
                 // divides the current display by 100 first then evaluates
-                current.innerText = (parseFloat(current.innerText) / 100) * storedNum; // how actual windows/mac calculator works
                 // past code: just "%" dividing current text by 100
                 // current.innerText = (parseFloat(current.innerText) / 100) * storedNum;
                 // evaluate();
@@ -91,6 +90,7 @@ window.onload = function () {
                 // current.innerText = storedNum;
                 // storedNum = 0;
                 // storedOp = "";
+                current.innerText = (parseFloat(current.innerText) / 100) * storedNum; // how actual windows/mac calculator works
                 break;
             case "=":
                 evaluate();
